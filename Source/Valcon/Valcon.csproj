@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F2D977B1-1AFE-4827-83F0-946563DC756C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Valcon</RootNamespace>
+    <AssemblyName>Valcon</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Attributes\AttributeMarker.cs" />
+    <Compile Include="Attributes\DateAttribute.cs" />
+    <Compile Include="Attributes\EmailAttribute.cs" />
+    <Compile Include="Attributes\MoneyAttribute.cs" />
+    <Compile Include="Attributes\NegativeNumberAttribute.cs" />
+    <Compile Include="Attributes\PercentAttribute.cs" />
+    <Compile Include="Attributes\PhoneNumberAttribute.cs" />
+    <Compile Include="Attributes\RequiredAttribute.cs" />
+    <Compile Include="Conventions\LambdaGraphModifier.cs" />
+    <Compile Include="Conventions\ValidationAttributeConvention.cs" />
+    <Compile Include="IInitializationExpression.cs" />
+    <Compile Include="InitializationExpression.cs" />
+    <Compile Include="Registration\Dsl\AssemblyScanner.cs" />
+    <Compile Include="Registration\Dsl\ConfigureDefaultValidationExpression.cs" />
+    <Compile Include="Registration\Dsl\ConfigureValidationForTypeExpression.cs" />
+    <Compile Include="CoreExtensions.cs" />
+    <Compile Include="Conventions\FindRegistriesConvention.cs" />
+    <Compile Include="Registration\Dsl\DefaultConventionExtensions.cs" />
+    <Compile Include="Registration\Dsl\IAssemblyScanner.cs" />
+    <Compile Include="Conventions\IGraphModifier.cs" />
+    <Compile Include="Conventions\IRegistrationConvention.cs" />
+    <Compile Include="Conventions\InheritValidationRulesModifer.cs" />
+    <Compile Include="Registration\Dsl\IValidationRegistry.cs" />
+    <Compile Include="Rules\BasicValidationRule.cs" />
+    <Compile Include="Rules\DateValidationRule.cs" />
+    <Compile Include="Rules\EmailValidationRule.cs" />
+    <Compile Include="Rules\MoneyValidationRule.cs" />
+    <Compile Include="Rules\NegativeNumberValidationRule.cs" />
+    <Compile Include="Rules\PercentValidationRule.cs" />
+    <Compile Include="Rules\PhoneNumberValidationRule.cs" />
+    <Compile Include="Rules\Rule.cs" />
+    <Compile Include="Rules\RuleMarker.cs" />
+    <Compile Include="Util\Cache.cs" />
+    <Compile Include="Registration\Dsl\IConfigureValidationForTypeExpression.cs" />
+    <Compile Include="Util\CompositeFilter.cs" />
+    <Compile Include="Util\CompositePredicate.cs" />
+    <Compile Include="ValidationChain.cs" />
+    <Compile Include="ValidationError.cs" />
+    <Compile Include="ValidationGraph.cs" />
+    <Compile Include="IValidationRule.cs" />
+    <Compile Include="Rules\RequiredValidationRule.cs" />
+    <Compile Include="Registration\Dsl\ValidationConfigurationDslExtensions.cs" />
+    <Compile Include="Registration\Dsl\ValidationRegistry.cs" />
+    <Compile Include="Validator.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
