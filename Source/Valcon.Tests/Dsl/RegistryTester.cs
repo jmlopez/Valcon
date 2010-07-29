@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using NUnit.Framework;
 using Valcon.Registration.Dsl;
 
