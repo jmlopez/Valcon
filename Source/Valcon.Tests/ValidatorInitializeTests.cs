@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Valcon.Conventions;
 using Valcon.Registration.Dsl;
 using Valcon.Rules;
 
@@ -21,6 +22,8 @@ namespace Valcon.Tests
                     r.GetType() ==
                     typeof (RequiredValidationRule<,>).MakeGenericType(typeof (ClassToValidate), typeof (string)))
                 .ShouldHaveCount(2);
+
+            var chain = Validator.FindChain<CreateUserInputModel>();
         }
 
         public class InitializeRegistry : ValidationRegistry
@@ -30,8 +33,26 @@ namespace Valcon.Tests
                 For<ClassToValidate>()
                     .Require(c => c.SimpleRequiredField)
                     .Require(c => c.AnotherSimpleRequiredField);
+
+                Scan(x =>
+                         {
+                             x.TheCallingAssembly();
+                             x.IncludeNamespaceContainingType<ModelMarker>();
+                             
+                             x.UseValidationAttributes();
+                             x.InheritValidationRules();
+
+                             x.ByDefault
+                                 .IfProperty(p => p.Name.Contains("Email"))
+                                 .ConfigureRule(typeof (EmailValidationRule<,>));
+                         });
             }
         }
+    }
+
+    public class ModelMarker
+    {
+        
     }
 
     public class CreateUserModel : CreateUserInputModel

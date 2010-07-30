@@ -107,5 +107,15 @@ namespace Valcon.Registration.Dsl
         {
             return expression.ConfigureRule(typeof(RequiredValidationRule<,>));
         }
+
+        public static IDefaultValidationExpression ValidateAsEmail(this IDefaultValidationExpression expression)
+        {
+            return expression.ConfigureRule(typeof (EmailValidationRule<,>));
+        }
+
+        public static IDefaultValidationExpression ValidateAsPhoneNumber(this IDefaultValidationExpression expression)
+        {
+            return expression.ConfigureRule(typeof(PhoneNumberValidationRule<,>));
+        }
     }
 }
