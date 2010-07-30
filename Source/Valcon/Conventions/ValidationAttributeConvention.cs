@@ -2,7 +2,6 @@ using System;
 using System.Reflection;
 using Valcon.Registration.Dsl;
 using Valcon.Rules;
-using Valcon.Registration;
 
 namespace Valcon.Conventions
 {

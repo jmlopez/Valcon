@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Valcon.Rules;
 
 namespace Valcon.Registration.Dsl
 {

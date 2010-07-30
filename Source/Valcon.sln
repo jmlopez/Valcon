@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valcon", "Valcon\Valcon.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valcon.Tests", "Valcon.Tests\Valcon.Tests.csproj", "{408D2C52-78D2-4F00-B6BF-45BF147ECAF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valcon.FubuMVC", "Valcon.FubuMVC\Valcon.FubuMVC.csproj", "{A2C8ADFF-6EF3-4E7E-8300-0D8A99DB361A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,10 +19,6 @@ Global
 		{408D2C52-78D2-4F00-B6BF-45BF147ECAF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{408D2C52-78D2-4F00-B6BF-45BF147ECAF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{408D2C52-78D2-4F00-B6BF-45BF147ECAF7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A2C8ADFF-6EF3-4E7E-8300-0D8A99DB361A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A2C8ADFF-6EF3-4E7E-8300-0D8A99DB361A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A2C8ADFF-6EF3-4E7E-8300-0D8A99DB361A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A2C8ADFF-6EF3-4E7E-8300-0D8A99DB361A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

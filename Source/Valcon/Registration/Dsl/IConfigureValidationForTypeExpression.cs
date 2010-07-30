@@ -1,6 +1,4 @@
-﻿using Valcon.Rules;
-
-namespace Valcon.Registration.Dsl
+﻿namespace Valcon.Registration.Dsl
 {
     public interface IConfigureValidationForTypeExpression
     {
