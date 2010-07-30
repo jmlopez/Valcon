@@ -9,38 +9,18 @@ using Valcon.Util;
 
 namespace Valcon.Registration.Dsl
 {
-    public class TypePool
-    {
-        private readonly Cache<Assembly, Type[]> _types = new Cache<Assembly, Type[]>();
-
-        public TypePool()
-        {
-            _types.OnMissing = assembly =>
-            {
-                try
-                {
-                    return assembly.GetExportedTypes();
-                }
-                catch (Exception)
-                {
-                    return new Type[0];
-                }
-            };
-        }
-
-        public IEnumerable<Type> For(IEnumerable<Assembly> assemblies, CompositeFilter<Type> filter)
-        {
-            return assemblies.SelectMany(x => _types[x].Where(filter.Matches));
-        }
-    }
-
     public class AssemblyScanner : IAssemblyScanner
     {
         private readonly List<Assembly> _assemblies = new List<Assembly>();
         private readonly List<IRegistrationConvention> _conventions = new List<IRegistrationConvention>();
         private readonly CompositeFilter<Type> _filter = new CompositeFilter<Type>();
         private readonly List<IGraphModifier> _graphModifiers = new List<IGraphModifier>();
-        private readonly ConfigureDefaultValidationExpression _defaultValidationExpression = new ConfigureDefaultValidationExpression();
+        private readonly ConfigureDefaultValidationExpression _defaultValidationExpression;
+
+        public AssemblyScanner()
+        {
+            _defaultValidationExpression = new ConfigureDefaultValidationExpression();
+        }
 
         public int Count { get { return _assemblies.Count; } }
 
@@ -225,8 +205,15 @@ namespace Valcon.Registration.Dsl
         {
             var registry = new ValidationRegistry();
             graph.Types.For(_assemblies, _filter).Each(type => _conventions.ForEach(c => c.Process(type, registry)));
+            graph
+                .Types
+                .For(_assemblies)
+                .Each(t =>
+                          {
+                              var properties = t.GetPublicProperties();
+                              properties.Each(p => _defaultValidationExpression.ConfigureRegistry(t, p, registry));
+                          });
             registry.ConfigureGraph(graph);
-
             _graphModifiers.ForEach(modifier => modifier.Modify(graph));
         }
     }

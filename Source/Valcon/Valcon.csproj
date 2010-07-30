@@ -67,6 +67,7 @@
     <Compile Include="Conventions\InheritValidationRulesModifer.cs" />
     <Compile Include="Registration\Dsl\IValidationRegistry.cs" />
     <Compile Include="Rules\BasicValidationRule.cs" />
+    <Compile Include="Rules\CompareValidationRule.cs" />
     <Compile Include="Rules\DateValidationRule.cs" />
     <Compile Include="Rules\EmailValidationRule.cs" />
     <Compile Include="Rules\MoneyValidationRule.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Registration\Dsl\IConfigureValidationForTypeExpression.cs" />
     <Compile Include="Util\CompositeFilter.cs" />
     <Compile Include="Util\CompositePredicate.cs" />
+    <Compile Include="Util\TypePool.cs" />
     <Compile Include="ValidationChain.cs" />
     <Compile Include="ValidationError.cs" />
     <Compile Include="ValidationGraph.cs" />

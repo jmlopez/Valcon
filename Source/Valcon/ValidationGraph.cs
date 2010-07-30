@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Valcon.Registration.Dsl;
 using Valcon.Util;
-using Valcon.Rules;
 
 namespace Valcon
 {
@@ -29,22 +28,6 @@ namespace Valcon
         public TypePool Types { get { return _types; } }
 
         public List<ValidationRegistry> Registries { get { return _registries; } }
-
-        public void AddChain(Type type, ValidationChain chain)
-        {
-            if(_chains.Exists(c => c.ModelType == type))
-            {
-                // TODO -- throw?
-                return;
-            }
-
-            _chains.Fill(type, new ValidationChain(type));
-        }
-
-        public void AddRule(Type type, IValidationRule rule)
-        {
-            FindChain(type).AddRule(rule);
-        }
 
         public ValidationChain<T> FindChain<T>()
             where T : class
