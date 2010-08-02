@@ -1,6 +1,8 @@
 push.bat
 TestResult.xml
 Build
+Results
+Results/*
 obj
 bin
 deploy
