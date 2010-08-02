@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Valcon.Graph;
 using Valcon.Rules;
 
 namespace Valcon.Registration.Dsl
@@ -34,18 +35,6 @@ namespace Valcon.Registration.Dsl
                 .Where(e => e.Matches(propertyInfo))
                 .Each(e => _alterations.Each(action => action(new Accessor(type, propertyInfo), registry)));
         }
-    }
-
-    public class Accessor
-    {
-        public Accessor(Type modelType, PropertyInfo property)
-        {
-            ModelType = modelType;
-            Property = property;
-        }
-
-        public Type ModelType { get; private set; }
-        public PropertyInfo Property { get; private set; }
     }
 
     public interface IDefaultValidationExpression

@@ -53,6 +53,8 @@
     <Compile Include="Attributes\RequiredAttribute.cs" />
     <Compile Include="Conventions\LambdaGraphModifier.cs" />
     <Compile Include="Conventions\ValidationAttributeConvention.cs" />
+    <Compile Include="Graph\Accessor.cs" />
+    <Compile Include="Graph\ValidationCall.cs" />
     <Compile Include="IInitializationExpression.cs" />
     <Compile Include="InitializationExpression.cs" />
     <Compile Include="Registration\Dsl\AssemblyScanner.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="Registration\Dsl\ValidationRegistry.cs" />
     <Compile Include="Validator.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
