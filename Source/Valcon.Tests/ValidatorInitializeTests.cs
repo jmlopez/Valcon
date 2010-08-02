@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Valcon.Conventions;
 using Valcon.Registration.Dsl;
 using Valcon.Rules;
 
@@ -21,9 +19,7 @@ namespace Valcon.Tests
                     r =>
                     r.GetType() ==
                     typeof (RequiredValidationRule<,>).MakeGenericType(typeof (ClassToValidate), typeof (string)))
-                .ShouldHaveCount(2);
-
-            var chain = Validator.FindChain<CreateUserInputModel>();
+                .ShouldHaveCount(3);
         }
 
         public class InitializeRegistry : ValidationRegistry
