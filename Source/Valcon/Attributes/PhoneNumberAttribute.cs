@@ -1,8 +1,12 @@
-using System;
+using Valcon.Rules;
 
 namespace Valcon.Attributes
 {
-    public class PhoneNumberAttribute : Attribute
+    public class PhoneNumberAttribute : RuleAttribute
     {
+        public PhoneNumberAttribute()
+            : base(typeof(PhoneNumberValidationRule<>))
+        {
+        }
     }
 }

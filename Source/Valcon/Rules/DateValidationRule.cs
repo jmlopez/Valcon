@@ -1,31 +1,27 @@
 using System;
-using System.Linq.Expressions;
+using Valcon.Registration.Graph;
 
 namespace Valcon.Rules
 {
-    public class DateValidationRule<TModel, TField> : BasicValidationRule<TModel, TField>
+    public class DateValidationRule<TModel> : BasicValidationRule<TModel>
         where TModel : class
     {
-        public DateValidationRule(Expression<Func<TModel, TField>> property)
-            : base(property)
+        public DateValidationRule(Accessor accessor)
+            : base(accessor)
         {
         }
 
         public override ValidationError Validate(TModel model)
         {
-            var propertyVal = GetRawValue(model);
-            if(propertyVal == null)
-            {
-                return InvalidModelState();
-            }
+            var propertyVal = GetPropertyValue(model);
 
             DateTime val;
-            if(DateTime.TryParse(propertyVal.ToString(), out val))
+            if (propertyVal == null || !DateTime.TryParse(propertyVal.ToString(), out val))
             {
-                return null;
+                return Error("Invalid date specified: {0}.", propertyVal);
             }
 
-            return new ValidationError(PropertyInfo, "Invalid date specified.");
+            return null;
         }
     }
 }

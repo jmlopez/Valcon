@@ -1,10 +1,9 @@
-using System;
-using System.Linq.Expressions;
 using System.Text.RegularExpressions;
+using Valcon.Registration.Graph;
 
 namespace Valcon.Rules
 {
-    public class EmailValidationRule<TModel, TField> : BasicValidationRule<TModel, TField>
+    public class EmailValidationRule<TModel> : BasicValidationRule<TModel>
        where TModel : class
     {
         private static readonly Regex EmailExp;
@@ -12,25 +11,20 @@ namespace Valcon.Rules
         {
             EmailExp = new Regex(@"^((?:(?:(?:[a-zA-Z0-9][\.\-\+_]?)*)[a-zA-Z0-9])+)\@((?:(?:(?:[a-zA-Z0-9][\.\-_]?){0,62})[a-zA-Z0-9])+)\.([a-zA-Z0-9]{2,6})$", RegexOptions.Compiled);
         }
-        public EmailValidationRule(Expression<Func<TModel, TField>> property)
-            : base(property)
+        public EmailValidationRule(Accessor accessor)
+            : base(accessor)
         {
         }
 
         public override ValidationError Validate(TModel model)
         {
-            var propertyVal = GetRawValue(model);
-            if (propertyVal == null)
+            var propertyVal = GetPropertyValue(model);
+            if(propertyVal == null || !EmailExp.IsMatch(propertyVal.ToString()))
             {
-                return InvalidModelState();
+                return Error("Invalid email address specified: {0}.", propertyVal);
             }
 
-            if (EmailExp.IsMatch(propertyVal.ToString()))
-            {
-                return null;
-            }
-
-            return new ValidationError(PropertyInfo, "Invalid email address specified.");
+            return null;
         }
     }
 }

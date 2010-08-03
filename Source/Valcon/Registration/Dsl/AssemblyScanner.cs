@@ -207,7 +207,7 @@ namespace Valcon.Registration.Dsl
             graph.Types.For(_assemblies, _filter).Each(type => _conventions.ForEach(c => c.Process(type, registry)));
             graph
                 .Types
-                .For(_assemblies)
+                .For(_assemblies, _filter)
                 .Each(t =>
                           {
                               var properties = t.GetPublicProperties();

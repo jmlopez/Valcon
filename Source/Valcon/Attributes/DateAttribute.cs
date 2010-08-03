@@ -1,6 +1,12 @@
-﻿using System;
+﻿using Valcon.Rules;
 
 namespace Valcon.Attributes
 {
-    public class DateAttribute : Attribute { }
+    public class DateAttribute : RuleAttribute
+    {
+        public DateAttribute()
+            : base(typeof(DateValidationRule<>))
+        {
+        }
+    }
 }

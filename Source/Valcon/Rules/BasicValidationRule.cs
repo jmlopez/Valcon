@@ -1,26 +1,32 @@
-using System;
-using System.Linq.Expressions;
-using System.Reflection;
+﻿using Valcon.Registration.Graph;
 
 namespace Valcon.Rules
 {
-    public abstract class BasicValidationRule<TModel, TField> : IValidationRule
+    public abstract class BasicValidationRule<TModel> : IValidationRule
         where TModel : class
     {
-        private readonly Expression<Func<TModel, TField>> _property;
-        protected readonly PropertyInfo PropertyInfo;
-        protected BasicValidationRule(Expression<Func<TModel, TField>> property)
+        private readonly Accessor _accessor;
+
+        protected BasicValidationRule(Accessor accessor)
         {
-            _property = property;
+            _accessor = accessor;
+        }
 
-            var memberExpression = property.Body as MemberExpression;
-            if (memberExpression == null)
-            {
-                throw new ArgumentException("Invalid expression - not a member access.", "property");
-            }
+        protected ValidationError InvalidModelState()
+        {
+            return new ValidationError(Accessor, "Invalid model state. Model cannot be null");
+        }
 
-            // TODO -- Blow up if not a property? Or should we allow for fields too?
-            PropertyInfo = memberExpression.Member as PropertyInfo;
+        public Accessor Accessor { get { return _accessor; } }
+
+        public ValidationError Error(string message)
+        {
+            return new ValidationError(Accessor, message);
+        }
+
+        public ValidationError Error(string format, params object[] args)
+        {
+            return new ValidationError(Accessor, string.Format(format, args));
         }
 
         public ValidationError Validate(object model)
@@ -34,26 +40,16 @@ namespace Valcon.Rules
             return Validate(modelToValidate);
         }
 
-        protected ValidationError InvalidModelState()
+        public object GetPropertyValue(object model)
         {
-            return new ValidationError(PropertyInfo, "Invalid model state. Model cannot be null");
+            return Accessor.Property.GetValue(model, null);
         }
 
         public abstract ValidationError Validate(TModel model);
 
-        public Expression<Func<TModel, TField>> Property
-        {
-            get { return _property; }
-        }
-
-        public TField GetRawValue(TModel model)
-        {
-            return (TField)PropertyInfo.GetValue(model, null);
-        }
-
         public string PropertyName
         {
-            get { return PropertyInfo.Name; }
+            get { return Accessor.Property.Name; }
         }
     }
 }

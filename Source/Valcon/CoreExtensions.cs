@@ -6,20 +6,27 @@ using Valcon.Attributes;
 
 namespace Valcon
 {
-    public static class CoreExtensions
+    internal static class CoreExtensions
     {
-        public static IEnumerable<Attribute> GetValidationAttributes(this PropertyInfo property)
+        public static bool IsValidationRule(this Type type)
+        {
+            return typeof (IValidationRule).IsAssignableFrom(type);
+        }
+
+        public static IEnumerable<RuleAttribute> GetValidationAttributes(this PropertyInfo property)
         {
             var attributeNamespace = typeof (AttributeMarker).Namespace;
+
+            // TODO -- Allow for any "RuleAttribute" rather than just Valcon's predefined
             var attributeTypes =
                 typeof (AttributeMarker).Assembly.GetTypes().Where(t => t.Namespace.StartsWith(attributeNamespace)
-                                                                        && typeof (Attribute).IsAssignableFrom(t));
+                                                                        && typeof (RuleAttribute).IsAssignableFrom(t) && !t.IsAbstract);
             foreach (var attributeType in attributeTypes)
             {
                 var attributes = property.GetCustomAttributes(attributeType, true);
                 if(attributes.Length != 0)
                 {
-                    yield return (Attribute) attributes[0];
+                    yield return (RuleAttribute)attributes[0];
                 }
             }
         }

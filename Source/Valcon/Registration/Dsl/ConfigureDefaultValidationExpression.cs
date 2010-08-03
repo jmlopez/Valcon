@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Valcon.Rules;
+using Valcon.Registration.Graph;
 
 namespace Valcon.Registration.Dsl
 {
@@ -33,89 +33,6 @@ namespace Valcon.Registration.Dsl
             _defaultExpressions
                 .Where(e => e.Matches(propertyInfo))
                 .Each(e => _alterations.Each(action => action(new Accessor(type, propertyInfo), registry)));
-        }
-    }
-
-    public class Accessor
-    {
-        public Accessor(Type modelType, PropertyInfo property)
-        {
-            ModelType = modelType;
-            Property = property;
-        }
-
-        public Type ModelType { get; private set; }
-        public PropertyInfo Property { get; private set; }
-    }
-
-    public interface IDefaultValidationExpression
-    {
-        IDefaultValidationExpression ConfigureRule(Type ruleType);
-    }
-
-    public class DefaultValidationExpression : IDefaultValidationExpression
-    {
-        private readonly Func<PropertyInfo, bool> _matches;
-        private readonly List<Type> _ruleTypes;
-        public DefaultValidationExpression(ConfigureDefaultValidationExpression expression, Func<PropertyInfo, bool> matches)
-        {
-            _matches = matches;
-            _ruleTypes = new List<Type>();
-            var ruleBuilder = new RuleBuilder();
-
-            expression.AddAlteration((a, r) =>
-                                          {
-                                              var modelExpression = r.For(a.ModelType);
-                                              _ruleTypes.ForEach(ruleType => modelExpression.AddRule(ruleBuilder.Build(a, ruleType)));
-                                          });
-        }
-
-        public Func<PropertyInfo, bool> Matches
-        {
-            get { return _matches; }
-        }
-
-        public IDefaultValidationExpression ConfigureRule(Type ruleType)
-        {
-            if(!_ruleTypes.Contains(ruleType))
-            {
-                _ruleTypes.Add(ruleType);
-            }
-
-            return this;
-        }
-    }
-
-    public class RuleBuilder
-    {
-        public IValidationRule Build(Accessor accessor, Type ruleType)
-        {
-            var concreteRuleType = ruleType.MakeGenericType(accessor.ModelType, accessor.Property.PropertyType);
-            var constructors = concreteRuleType.GetConstructors(BindingFlags.Instance | BindingFlags.CreateInstance | BindingFlags.Public);
-            if (constructors.Length == 0)
-            {
-                return null;
-            }
-
-            return (IValidationRule)constructors[0].Invoke(new object[] { LambdaBuilder.ToLambda(accessor.ModelType, accessor.Property) });
-        }
-    }
-
-    public static class DefautlValidationDslExtensions
-    {
-        public static IDefaultValidationExpression MakeRequired(this IDefaultValidationExpression expression)
-        {
-            return expression.ConfigureRule(typeof(RequiredValidationRule<,>));
-        }
-
-        public static IDefaultValidationExpression ValidateAsEmail(this IDefaultValidationExpression expression)
-        {
-            return expression.ConfigureRule(typeof (EmailValidationRule<,>));
-        }
-
-        public static IDefaultValidationExpression ValidateAsPhoneNumber(this IDefaultValidationExpression expression)
-        {
-            return expression.ConfigureRule(typeof(PhoneNumberValidationRule<,>));
         }
     }
 }

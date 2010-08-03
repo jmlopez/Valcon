@@ -1,10 +1,9 @@
-using System;
-using System.Linq.Expressions;
 using System.Text.RegularExpressions;
+using Valcon.Registration.Graph;
 
 namespace Valcon.Rules
 {
-    public class PhoneNumberValidationRule<TModel, TField> : BasicValidationRule<TModel, TField>
+    public class PhoneNumberValidationRule<TModel> : BasicValidationRule<TModel>
        where TModel : class
     {
         private static readonly Regex PhoneNumberExp;
@@ -12,25 +11,22 @@ namespace Valcon.Rules
         {
             PhoneNumberExp = new Regex("[0-9]{10}", RegexOptions.Compiled);
         }
-        public PhoneNumberValidationRule(Expression<Func<TModel, TField>> property)
-            : base(property)
+
+
+        public PhoneNumberValidationRule(Accessor accessor) 
+            : base(accessor)
         {
         }
 
         public override ValidationError Validate(TModel model)
         {
-            var propertyVal = GetRawValue(model);
-            if (propertyVal == null)
+            var propertyVal = GetPropertyValue(model);
+            if (propertyVal == null || !PhoneNumberExp.IsMatch(propertyVal.ToString()))
             {
-                return InvalidModelState();
+                return Error("Invalid phone number specified: {0}.", propertyVal);
             }
 
-            if(PhoneNumberExp.IsMatch(propertyVal.ToString()))
-            {
-                return null;
-            }
-
-            return new ValidationError(PropertyInfo, "Invalid phone number specified.");
+            return null;
         }
     }
 }

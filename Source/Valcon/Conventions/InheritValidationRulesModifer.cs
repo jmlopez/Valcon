@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Valcon.Registration;
 
 namespace Valcon.Conventions
 {
@@ -9,11 +10,11 @@ namespace Valcon.Conventions
         {
             foreach (var chain in graph.Chains.ToList())
             {
-                CopyRulesForChain(graph, chain);
+                CopyCallsForChain(graph, chain);
             }
         }
 
-        public void CopyRulesForChain(ValidationGraph graph, ValidationChain chain)
+        public static void CopyCallsForChain(ValidationGraph graph, ValidationChain chain)
         {
             var modelType = chain.ModelType.BaseType;
             while(modelType != null && modelType != typeof(Object))
@@ -21,12 +22,12 @@ namespace Valcon.Conventions
                 var properties = modelType.GetPublicProperties();
                 foreach (var property in properties)
                 {
-                    if (!chain.RulesFor(property.Name).Any())
+                    if (!chain.CallsFor(property.Name).Any())
                     {
-                        var parentChain = graph.FindChain(modelType).RulesFor(property.Name);
-                        foreach (var rule in parentChain)
+                        var parentChain = graph.FindChain(modelType).CallsFor(property.Name);
+                        foreach (var call in parentChain)
                         {
-                            chain.AddRule(rule);
+                            chain.AddCall(call);
                         }
                     }
                 }

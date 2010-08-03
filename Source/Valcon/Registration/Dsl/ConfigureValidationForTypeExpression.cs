@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Valcon.Registration.Graph;
 
 namespace Valcon.Registration.Dsl
 {
     public class ConfigureValidationForTypeExpression : IConfigureValidationForTypeExpression
     {
         private readonly List<Action<ValidationChain>> _alterations;
-        private readonly Type _modelType;
         public ConfigureValidationForTypeExpression(Type modelType, ValidationRegistry registry)
         {
-            _modelType = modelType;
             _alterations = new List<Action<ValidationChain>>();
 
             registry.AddExpression(graph =>
@@ -19,9 +18,9 @@ namespace Valcon.Registration.Dsl
             });
         }
 
-        public IConfigureValidationForTypeExpression AddRule(IValidationRule rule)
+        public IConfigureValidationForTypeExpression AddCall(ValidationCall call)
         {
-            _alterations.Add(chain => chain.AddRule(rule));
+            _alterations.Add(chain => chain.AddCall(call));
             return this;
         }
     }
@@ -30,10 +29,8 @@ namespace Valcon.Registration.Dsl
         where T : class
     {
         private readonly List<Action<ValidationChain<T>>> _alterations;
-        private readonly Type _modelType;
         public ConfigureValidationForTypeExpression(ValidationRegistry registry)
         {
-            _modelType = typeof (T);
             _alterations = new List<Action<ValidationChain<T>>>();
 
             registry.AddExpression(graph =>
@@ -43,9 +40,9 @@ namespace Valcon.Registration.Dsl
                                        });
         }
 
-        public IConfigureValidationForTypeExpression<T> AddRule(IValidationRule rule)
+        public IConfigureValidationForTypeExpression<T> AddCall(ValidationCall call)
         {
-            _alterations.Add(chain => chain.AddRule(rule));
+            _alterations.Add(chain => chain.AddCall(call));
             return this;
         }
     }

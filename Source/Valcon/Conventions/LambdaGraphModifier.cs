@@ -1,4 +1,5 @@
 using System;
+using Valcon.Registration;
 
 namespace Valcon.Conventions
 {
