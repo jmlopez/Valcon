@@ -1,16 +1,16 @@
-﻿using System.Reflection;
+﻿using Valcon.Registration.Graph;
 
 namespace Valcon
 {
     public class ValidationError
     {
-        public ValidationError(PropertyInfo propertyName, string errorMessage)
+        public ValidationError(Accessor accessor, string errorMessage)
         {
-            Property = propertyName;
+            Accessor = accessor;
             ErrorMessage = errorMessage;
         }
 
-        public PropertyInfo Property { get; private set; }
+        public Accessor Accessor { get; private set; }
         public string ErrorMessage { get; private set; }
     }
 }

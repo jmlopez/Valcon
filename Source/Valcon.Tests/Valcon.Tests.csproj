@@ -45,8 +45,8 @@
   <ItemGroup>
     <Compile Include="ClassToValidate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rules\BasicRuleTester.cs" />
     <Compile Include="SpecificationExtensions.cs" />
-    <Compile Include="ValidatorInitializeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Valcon\Valcon.csproj">

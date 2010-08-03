@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Valcon.Registration.Graph;
 
 namespace Valcon.Registration.Dsl
 {

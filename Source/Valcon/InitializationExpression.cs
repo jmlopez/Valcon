@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Valcon.Registration;
 using Valcon.Registration.Dsl;
 
 namespace Valcon

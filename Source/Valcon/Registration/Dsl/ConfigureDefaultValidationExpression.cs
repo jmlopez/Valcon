@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Valcon.Graph;
+using Valcon.Registration.Graph;
 using Valcon.Rules;
 
 namespace Valcon.Registration.Dsl
@@ -94,17 +94,17 @@ namespace Valcon.Registration.Dsl
     {
         public static IDefaultValidationExpression MakeRequired(this IDefaultValidationExpression expression)
         {
-            return expression.ConfigureRule(typeof(RequiredValidationRule<,>));
+            return expression.ConfigureRule(typeof(RequiredValidationRule<>));
         }
 
         public static IDefaultValidationExpression ValidateAsEmail(this IDefaultValidationExpression expression)
         {
-            return expression.ConfigureRule(typeof (EmailValidationRule<,>));
+            return expression.ConfigureRule(typeof (EmailValidationRule<>));
         }
 
         public static IDefaultValidationExpression ValidateAsPhoneNumber(this IDefaultValidationExpression expression)
         {
-            return expression.ConfigureRule(typeof(PhoneNumberValidationRule<,>));
+            return expression.ConfigureRule(typeof(PhoneNumberValidationRule<>));
         }
     }
 }

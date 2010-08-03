@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using Valcon.Registration;
+using Valcon.Registration.Graph;
 
 namespace Valcon.Conventions
 {

@@ -1,13 +1,12 @@
-using System;
-using System.Linq.Expressions;
+using Valcon.Registration.Graph;
 
 namespace Valcon.Rules
 {
-    public class PercentValidationRule<TModel, TField> : MoneyValidationRule<TModel, TField>
+    public class PercentValidationRule<TModel> : MoneyValidationRule<TModel>
        where TModel : class
     {
-        public PercentValidationRule(Expression<Func<TModel, TField>> property)
-            : base(property)
+        public PercentValidationRule(Accessor accessor) 
+            : base(accessor)
         {
         }
     }

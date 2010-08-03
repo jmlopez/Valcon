@@ -6,8 +6,13 @@ using Valcon.Attributes;
 
 namespace Valcon
 {
-    public static class CoreExtensions
+    internal static class CoreExtensions
     {
+        public static bool IsValidationRule(this Type type)
+        {
+            return typeof (IValidationRule).IsAssignableFrom(type);
+        }
+
         public static IEnumerable<Attribute> GetValidationAttributes(this PropertyInfo property)
         {
             var attributeNamespace = typeof (AttributeMarker).Namespace;
