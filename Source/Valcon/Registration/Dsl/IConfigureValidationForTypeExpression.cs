@@ -1,13 +1,15 @@
-﻿namespace Valcon.Registration.Dsl
+﻿using Valcon.Registration.Graph;
+
+namespace Valcon.Registration.Dsl
 {
     public interface IConfigureValidationForTypeExpression
     {
-        IConfigureValidationForTypeExpression AddRule(IValidationRule rule);
+        IConfigureValidationForTypeExpression AddCall(ValidationCall call);
     }
 
     public interface IConfigureValidationForTypeExpression<T>
         where T : class
     {
-        IConfigureValidationForTypeExpression<T> AddRule(IValidationRule rule);
+        IConfigureValidationForTypeExpression<T> AddCall(ValidationCall call);
     }
 }

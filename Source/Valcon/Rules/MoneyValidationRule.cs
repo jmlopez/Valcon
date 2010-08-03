@@ -13,22 +13,15 @@ namespace Valcon.Rules
 
         public override ValidationError Validate(TModel model)
         {
-            //var propertyVal = GetRawValue(model);
-            //if (propertyVal == null || !propertyVal.GetType().IsAssignableFrom(typeof(double)))
-            //{
-            //    return InvalidModelState();
-            //}
+            var propertyVal = GetPropertyValue(model);
 
-            //var val = Double.Parse(propertyVal.ToString());
-            //if(val >= 0)
-            //{
-            //    return null;
-            //}
+            Decimal val;
+            if (propertyVal == null || !Decimal.TryParse(propertyVal.ToString(), out val) || val < 0)
+            {
+                return Error("Invalid money value specified: {0}.", propertyVal);
+            }
 
-            //return new ValidationError(PropertyInfo, "Invalid money value specified.");
-
-            //TODO
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

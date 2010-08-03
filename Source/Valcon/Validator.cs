@@ -22,7 +22,7 @@ namespace Valcon
                 _graph = expression.BuildGraph();
                 _graph.Seal();
 
-                _validationProvider = new ValidationProvider(_graph);
+                _validationProvider = new ValidationProvider(_graph, new RuleBuilder(expression.ServiceLocator));
             }
         }
 

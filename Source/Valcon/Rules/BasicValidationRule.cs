@@ -24,6 +24,11 @@ namespace Valcon.Rules
             return new ValidationError(Accessor, message);
         }
 
+        public ValidationError Error(string format, params object[] args)
+        {
+            return new ValidationError(Accessor, string.Format(format, args));
+        }
+
         public ValidationError Validate(object model)
         {
             var modelToValidate = model as TModel;
@@ -33,6 +38,11 @@ namespace Valcon.Rules
             }
 
             return Validate(modelToValidate);
+        }
+
+        public object GetPropertyValue(object model)
+        {
+            return Accessor.Property.GetValue(model, null);
         }
 
         public abstract ValidationError Validate(TModel model);

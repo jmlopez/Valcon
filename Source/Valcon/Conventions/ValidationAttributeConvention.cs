@@ -1,7 +1,6 @@
 using System;
-using System.Reflection;
 using Valcon.Registration.Dsl;
-using Valcon.Rules;
+using Valcon.Registration.Graph;
 
 namespace Valcon.Conventions
 {
@@ -9,17 +8,10 @@ namespace Valcon.Conventions
     {
         public void Process(Type type, ValidationRegistry registry)
         {
-            var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            properties.Each(p =>
-                                {
-                                    var validationAttributes = p.GetValidationAttributes();
-                                    foreach (var validationAttribute in validationAttributes)
-                                    {
-                                        var name = validationAttribute.GetType().Name.Replace("Attribute", string.Empty);
-                                        var rule = Rule.For(type, p, name);
-                                        registry.For(type).AddRule(rule);
-                                    }
-                                });
+            var properties = type.GetPublicProperties();
+            properties.Each(p => p.GetValidationAttributes().Each(attribute => registry
+                                                                                   .For(type)
+                                                                                   .AddCall(new ValidationCall(attribute.RuleType, new Accessor(type, p)))));
         }
     }
 }

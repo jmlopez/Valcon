@@ -13,22 +13,15 @@ namespace Valcon.Rules
 
         public override ValidationError Validate(TModel model)
         {
-            //var propertyVal = GetRawValue(model);
-            //if(propertyVal == null)
-            //{
-            //    return InvalidModelState();
-            //}
+            var propertyVal = GetPropertyValue(model);
 
-            //DateTime val;
-            //if(DateTime.TryParse(propertyVal.ToString(), out val))
-            //{
-            //    return null;
-            //}
+            DateTime val;
+            if (propertyVal == null || !DateTime.TryParse(propertyVal.ToString(), out val))
+            {
+                return Error("Invalid date specified: {0}.", propertyVal);
+            }
 
-            //return new ValidationError(PropertyInfo, "Invalid date specified.");
-            
-            //TODO
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

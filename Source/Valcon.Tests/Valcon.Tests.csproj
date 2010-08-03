@@ -46,6 +46,9 @@
     <Compile Include="ClassToValidate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\BasicRuleTester.cs" />
+    <Compile Include="Rules\EmailRuleTester.cs" />
+    <Compile Include="Rules\PhoneNumberRuleTester.cs" />
+    <Compile Include="Rules\RequiredRuleTester.cs" />
     <Compile Include="SpecificationExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

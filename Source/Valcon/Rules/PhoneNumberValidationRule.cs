@@ -1,4 +1,3 @@
-using System;
 using System.Text.RegularExpressions;
 using Valcon.Registration.Graph;
 
@@ -14,27 +13,20 @@ namespace Valcon.Rules
         }
 
 
-        public PhoneNumberValidationRule(Accessor accessor) : base(accessor)
+        public PhoneNumberValidationRule(Accessor accessor) 
+            : base(accessor)
         {
         }
 
         public override ValidationError Validate(TModel model)
         {
-            //var propertyVal = GetRawValue(model);
-            //if (propertyVal == null)
-            //{
-            //    return InvalidModelState();
-            //}
+            var propertyVal = GetPropertyValue(model);
+            if (propertyVal == null || !PhoneNumberExp.IsMatch(propertyVal.ToString()))
+            {
+                return Error("Invalid phone number specified: {0}.", propertyVal);
+            }
 
-            //if(PhoneNumberExp.IsMatch(propertyVal.ToString()))
-            //{
-            //    return null;
-            //}
-
-            //return new ValidationError(PropertyInfo, "Invalid phone number specified.");
-
-            //TODO
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

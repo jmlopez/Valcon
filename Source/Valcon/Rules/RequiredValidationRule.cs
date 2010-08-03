@@ -1,5 +1,4 @@
-﻿using System;
-using Valcon.Registration.Graph;
+﻿using Valcon.Registration.Graph;
 
 namespace Valcon.Rules
 {
@@ -13,23 +12,11 @@ namespace Valcon.Rules
 
         public override ValidationError Validate(TModel model)
         {
-            var propertyValue = Accessor.Property.GetValue(model, null);
-            if (propertyValue == null)
+            var propertyValue = GetPropertyValue(model);
+            if (propertyValue == null || (typeof(string).IsAssignableFrom(Accessor.Property.PropertyType) 
+                && string.IsNullOrEmpty(propertyValue.ToString())))
             {
-                return InvalidModelState();
-            }
-
-            var type = Accessor.Property.PropertyType;
-            if (!type.IsValueType)
-            {
-                return null;
-            }
-
-            // I don't like this but it's working for now
-            var defaultValue = Activator.CreateInstance(type);
-            if (defaultValue.Equals(propertyValue))
-            {
-                return new ValidationError(Accessor, string.Format("{0} is required", PropertyName));
+                return Error("Required field was null or empty: {0}", Accessor.Property.Name);
             }
 
             return null;

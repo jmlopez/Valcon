@@ -1,4 +1,3 @@
-using System;
 using System.Text.RegularExpressions;
 using Valcon.Registration.Graph;
 
@@ -19,21 +18,13 @@ namespace Valcon.Rules
 
         public override ValidationError Validate(TModel model)
         {
-            //var propertyVal = GetRawValue(model);
-            //if (propertyVal == null)
-            //{
-            //    return InvalidModelState();
-            //}
+            var propertyVal = GetPropertyValue(model);
+            if(propertyVal == null || !EmailExp.IsMatch(propertyVal.ToString()))
+            {
+                return Error("Invalid email address specified: {0}.", propertyVal);
+            }
 
-            //if (EmailExp.IsMatch(propertyVal.ToString()))
-            //{
-            //    return null;
-            //}
-
-            //return new ValidationError(PropertyInfo, "Invalid email address specified.");
-
-            //TODO
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

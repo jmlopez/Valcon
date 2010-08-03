@@ -4,22 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Valcon.Registration.Graph;
 
 namespace Valcon.Registration
 {
-    public class ValidationChain : IEnumerable<IValidationRule>
+    public class ValidationChain : IEnumerable<ValidationCall>
     {
-        private readonly IList<IValidationRule> _rules;
+        private readonly IList<ValidationCall> _calls;
         private readonly Type _type;
         public ValidationChain(Type type)
         {
-            _rules = new List<IValidationRule>();
+            _calls = new List<ValidationCall>();
             _type = type;
         }
 
-        public void AddRule(IValidationRule rule)
+        public void AddCall(ValidationCall call)
         {
-            _rules.Add(rule);
+            _calls.Add(call);
         }
 
         public Type ModelType
@@ -27,9 +28,9 @@ namespace Valcon.Registration
             get { return _type; }
         }
 
-        public IEnumerator<IValidationRule> GetEnumerator()
+        public IEnumerator<ValidationCall> GetEnumerator()
         {
-            return _rules.GetEnumerator();
+            return _calls.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -37,9 +38,9 @@ namespace Valcon.Registration
             return GetEnumerator();
         }
 
-        public IEnumerable<IValidationRule> RulesFor(string propertyName)
+        public IEnumerable<ValidationCall> CallsFor(string propertyName)
         {
-            return this.Where(r => r.PropertyName == propertyName);
+            return this.Where(call => call.Accessor.Property.Name == propertyName);
         }
 
         public static ValidationChain GenericForModel(Type modelType)
@@ -56,7 +57,7 @@ namespace Valcon.Registration
         {
         }
 
-        public IEnumerable<IValidationRule> RulesFor(Expression<Func<T, object>> propertyExpression)
+        public IEnumerable<ValidationCall> CallsFor(Expression<Func<T, object>> propertyExpression)
         {
             var memberExpression = propertyExpression.Body as MemberExpression;
             if (memberExpression == null)
@@ -71,10 +72,10 @@ namespace Valcon.Registration
                 yield break;
             }
 
-            var rules = this.Where(r => r.PropertyName == property.Name);
-            foreach (var rule in rules)
+            var calls = CallsFor(property.Name);
+            foreach (var call in calls)
             {
-                yield return rule;
+                yield return call;
             }
         }
     }

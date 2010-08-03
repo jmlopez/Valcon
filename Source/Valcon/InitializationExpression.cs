@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Valcon.Registration;
 using Valcon.Registration.Dsl;
 
@@ -7,10 +8,21 @@ namespace Valcon
     public class InitializationExpression : ValidationRegistry, IInitializationExpression
     {
         private readonly List<ValidationRegistry> _registries;
-
+        private Func<Type, object> _serviceLocator;
         public InitializationExpression()
         {
             _registries = new List<ValidationRegistry> {this};
+            _serviceLocator = t => null;
+        }
+
+        public Func<Type, object> ServiceLocator
+        {
+            get { return _serviceLocator; }
+        }
+
+        public void BuildDependenciesWith(Func<Type, object> serviceLocator)
+        {
+            _serviceLocator = serviceLocator;
         }
 
         public void AddRegistry<T>() 

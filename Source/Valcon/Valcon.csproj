@@ -55,6 +55,7 @@
     <Compile Include="Conventions\ValidationAttributeConvention.cs" />
     <Compile Include="IInitializationExpression.cs" />
     <Compile Include="InitializationExpression.cs" />
+    <Compile Include="IRuleBuilder.cs" />
     <Compile Include="IValidationProvider.cs" />
     <Compile Include="Registration\Dsl\AssemblyScanner.cs" />
     <Compile Include="Registration\Dsl\ConfigureDefaultValidationExpression.cs" />
@@ -62,10 +63,13 @@
     <Compile Include="CoreExtensions.cs" />
     <Compile Include="Conventions\FindRegistriesConvention.cs" />
     <Compile Include="Registration\Dsl\DefaultConventionExtensions.cs" />
+    <Compile Include="Registration\Dsl\DefaultValidationExpression.cs" />
+    <Compile Include="Registration\Dsl\DefautlValidationDslExtensions.cs" />
     <Compile Include="Registration\Dsl\IAssemblyScanner.cs" />
     <Compile Include="Conventions\IGraphModifier.cs" />
     <Compile Include="Conventions\IRegistrationConvention.cs" />
     <Compile Include="Conventions\InheritValidationRulesModifer.cs" />
+    <Compile Include="Registration\Dsl\IDefaultValidationExpression.cs" />
     <Compile Include="Registration\Dsl\IValidationRegistry.cs" />
     <Compile Include="Registration\Graph\Accessor.cs" />
     <Compile Include="Registration\Graph\ConfiguredDependency.cs" />
@@ -82,7 +86,6 @@
     <Compile Include="Rules\MoneyValidationRule.cs" />
     <Compile Include="Rules\PercentValidationRule.cs" />
     <Compile Include="Rules\PhoneNumberValidationRule.cs" />
-    <Compile Include="Rules\Rule.cs" />
     <Compile Include="Rules\RuleMarker.cs" />
     <Compile Include="Util\Cache.cs" />
     <Compile Include="Registration\Dsl\IConfigureValidationForTypeExpression.cs" />
@@ -93,7 +96,7 @@
     <Compile Include="Registration\ValidationGraph.cs" />
     <Compile Include="IValidationRule.cs" />
     <Compile Include="Rules\RequiredValidationRule.cs" />
-    <Compile Include="Registration\Dsl\ValidationConfigurationDslExtensions.cs" />
+    <Compile Include="ValidationConfigurationDslExtensions.cs" />
     <Compile Include="Registration\Dsl\ValidationRegistry.cs" />
     <Compile Include="Validator.cs" />
   </ItemGroup>

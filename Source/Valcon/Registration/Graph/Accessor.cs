@@ -19,5 +19,28 @@ namespace Valcon.Registration.Graph
         {
             return expression.ToAccessor();
         }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof (Accessor)) return false;
+            return Equals((Accessor) obj);
+        }
+
+        public bool Equals(Accessor other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Equals(other.ModelType, ModelType) && Equals(other.Property, Property);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((ModelType != null ? ModelType.GetHashCode() : 0)*397) ^ (Property != null ? Property.GetHashCode() : 0);
+            }
+        }
     }
 }
