@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassToValidate.cs" />
+    <Compile Include="InitializationExpressionTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\BasicRuleTester.cs" />
     <Compile Include="Rules\EmailRuleTester.cs" />
@@ -56,6 +57,9 @@
       <Project>{F2D977B1-1AFE-4827-83F0-946563DC756C}</Project>
       <Name>Valcon</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Registration\Dsl\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
