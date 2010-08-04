@@ -72,14 +72,10 @@
     <Compile Include="Registration\Dsl\IDefaultValidationExpression.cs" />
     <Compile Include="Registration\Dsl\IValidationRegistry.cs" />
     <Compile Include="Registration\Graph\Accessor.cs" />
-    <Compile Include="Registration\Graph\ConfiguredDependency.cs" />
     <Compile Include="Registration\Graph\GraphExtensions.cs" />
-    <Compile Include="Registration\Graph\IDependency.cs" />
-    <Compile Include="Registration\Graph\IDependencyVisitor.cs" />
     <Compile Include="Registration\Graph\RuleDef.cs" />
     <Compile Include="Registration\Graph\ValidationCall.cs" />
     <Compile Include="Registration\ValidationChain.cs" />
-    <Compile Include="Registration\Graph\ValueDependency.cs" />
     <Compile Include="Rules\BasicValidationRule.cs" />
     <Compile Include="Rules\DateValidationRule.cs" />
     <Compile Include="Rules\EmailValidationRule.cs" />
