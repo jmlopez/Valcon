@@ -18,4 +18,5 @@ If you do not have ruby:
 1. You need to manually create a src\CommonAssemblyInfo.cs file 
 
   * type: `echo // > src\CommonAssemblyInfo.cs`
-1. open src\FubuMVC.sln with Visual Studio and Build the solution
+  
+1. open Source\Valcon.sln with Visual Studio and Build the solution
