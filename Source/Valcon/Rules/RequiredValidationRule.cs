@@ -2,7 +2,7 @@
 
 namespace Valcon.Rules
 {
-    public class RequiredValidationRule<TModel> : BasicValidationRule<TModel>
+    public class RequiredValidationRule<TModel> : BaseValidationRule<TModel>
         where TModel : class
     {
         public RequiredValidationRule(Accessor accessor) 
@@ -12,7 +12,7 @@ namespace Valcon.Rules
 
         public override ValidationError Validate(TModel model)
         {
-            var propertyValue = GetPropertyValue(model);
+            var propertyValue = GetAccessorValue(model);
             if (propertyValue == null || (typeof(string).IsAssignableFrom(Accessor.Property.PropertyType) 
                 && string.IsNullOrEmpty(propertyValue.ToString())))
             {

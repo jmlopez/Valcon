@@ -43,5 +43,11 @@ namespace Valcon
         {
             return expression.AddCall(new ValidationCall(typeof(PhoneNumberValidationRule<>), property.ToAccessor()));
         }
+
+        public static IConfigureValidationForTypeExpression<TModel> Compare<TModel, TField>(this IConfigureValidationForTypeExpression<TModel> expression,
+            Expression<Func<TModel, TField>> source, Expression<Func<TModel, TField>> target) where TModel : class
+        {
+            return expression.AddCall(new ComparisonValidationCall(typeof(ComparisonValidationRule<>), source.ToAccessor(), target.ToAccessor()));
+        }
     }
 }

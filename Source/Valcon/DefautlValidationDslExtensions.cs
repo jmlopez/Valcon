@@ -1,6 +1,7 @@
-﻿using Valcon.Rules;
+﻿using Valcon.Registration.Dsl;
+using Valcon.Rules;
 
-namespace Valcon.Registration.Dsl
+namespace Valcon
 {
     public static class DefautlValidationDslExtensions
     {

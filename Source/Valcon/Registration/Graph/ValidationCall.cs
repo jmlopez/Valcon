@@ -1,19 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Valcon.Registration.Graph
 {
-    public class ValidationCall
+    public class ValidationCall : ValidationNode
     {
-        private readonly Type _ruleType;
         private readonly Accessor _accessor;
         public ValidationCall(Type ruleType, Accessor accessor)
+            : base(ruleType)
         {
             if(!typeof(IValidationRule).IsAssignableFrom(ruleType))
             {
                 throw new ArgumentException("Invalid rule type specified", "ruleType");
             }
 
-            _ruleType = ruleType;
             _accessor = accessor;
         }
 
@@ -22,9 +22,42 @@ namespace Valcon.Registration.Graph
             get { return _accessor; }
         }
 
-        public Type RuleType
+        public override RuleDef ToRuleDef()
         {
-            get { return _ruleType; }
+            return new RuleDef
+                       {
+                           Name = DetermineRuleName(),
+                           Type = DetermineRuleType(),
+                           Dependencies = new List<ValueDependency>
+                                              {
+                                                  new ValueDependency
+                                                      {
+                                                          DependencyType = typeof(Accessor),
+                                                          Value = Accessor
+                                                      }
+                                              }
+                       };
+        }
+
+        protected virtual string DetermineRuleName()
+        {
+            var ruleName = DetermineRuleType().Name;
+            if(!ruleName.Contains("ValidationRule"))
+            {
+                return ruleName;
+            }
+
+            return ruleName.Substring(0, ruleName.IndexOf("ValidationRule"));
+        }
+
+        protected virtual Type DetermineRuleType()
+        {
+            if (RuleType.IsGenericTypeDefinition)
+            {
+                return RuleType.MakeGenericType(Accessor.ModelType);
+            }
+
+            return RuleType;
         }
 
         public override bool Equals(object obj)
@@ -35,36 +68,18 @@ namespace Valcon.Registration.Graph
             return Equals((ValidationCall) obj);
         }
 
-        public virtual RuleDef ToRuleDef()
-        {
-            return new RuleDef
-                       {
-                           Type = DetermineRuleType()
-                       };
-        }
-
-        protected virtual Type DetermineRuleType()
-        {
-            if(RuleType.IsGenericTypeDefinition)
-            {
-                return RuleType.MakeGenericType(Accessor.ModelType);
-            }
-
-            return RuleType;
-        }
-
         public bool Equals(ValidationCall other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(other._ruleType, _ruleType) && Equals(other._accessor, _accessor);
+            return Equals(other.RuleType, RuleType) && Equals(other._accessor, _accessor);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return ((_ruleType != null ? _ruleType.GetHashCode() : 0)*397) ^ (_accessor != null ? _accessor.GetHashCode() : 0);
+                return ((RuleType != null ? RuleType.GetHashCode() : 0) * 397) ^ (_accessor != null ? _accessor.GetHashCode() : 0);
             }
         }
     }

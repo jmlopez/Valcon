@@ -3,7 +3,7 @@ using Valcon.Registration.Graph;
 
 namespace Valcon.Rules
 {
-    public class PhoneNumberValidationRule<TModel> : BasicValidationRule<TModel>
+    public class PhoneNumberValidationRule<TModel> : BaseValidationRule<TModel>
        where TModel : class
     {
         private static readonly Regex PhoneNumberExp;
@@ -20,7 +20,7 @@ namespace Valcon.Rules
 
         public override ValidationError Validate(TModel model)
         {
-            var propertyVal = GetPropertyValue(model);
+            var propertyVal = GetAccessorValue(model);
             if (propertyVal == null || !PhoneNumberExp.IsMatch(propertyVal.ToString()))
             {
                 return Error("Invalid phone number specified: {0}.", propertyVal);

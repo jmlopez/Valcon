@@ -50,7 +50,7 @@ namespace Valcon.Tests.Rules
         }
 
         #region Nested Types
-        private class FakeValidationRule : BasicValidationRule<ModelToTest>
+        private class FakeValidationRule : BaseValidationRule<ModelToTest>
         {
             public FakeValidationRule(Accessor accessor) : base(accessor)
             {

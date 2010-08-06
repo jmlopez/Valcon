@@ -3,7 +3,7 @@ using Valcon.Registration.Graph;
 
 namespace Valcon.Rules
 {
-    public class MoneyValidationRule<TModel> : BasicValidationRule<TModel>
+    public class MoneyValidationRule<TModel> : BaseValidationRule<TModel>
        where TModel : class
     {
         public MoneyValidationRule(Accessor accessor) 
@@ -13,7 +13,7 @@ namespace Valcon.Rules
 
         public override ValidationError Validate(TModel model)
         {
-            var propertyVal = GetPropertyValue(model);
+            var propertyVal = GetAccessorValue(model);
 
             Decimal val;
             if (propertyVal == null || !Decimal.TryParse(propertyVal.ToString(), out val) || val < 0)
