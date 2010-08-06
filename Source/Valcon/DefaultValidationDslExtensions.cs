@@ -3,7 +3,7 @@ using Valcon.Rules;
 
 namespace Valcon
 {
-    public static class DefautlValidationDslExtensions
+    public static class DefaultValidationDslExtensions
     {
         public static IDefaultValidationExpression IsRequired(this IDefaultValidationExpression expression)
         {

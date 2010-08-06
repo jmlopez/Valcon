@@ -64,7 +64,7 @@
     <Compile Include="Conventions\FindRegistriesConvention.cs" />
     <Compile Include="Registration\Dsl\DefaultConventionExtensions.cs" />
     <Compile Include="Registration\Dsl\DefaultValidationExpression.cs" />
-    <Compile Include="DefautlValidationDslExtensions.cs" />
+    <Compile Include="DefaultValidationDslExtensions.cs" />
     <Compile Include="Registration\Dsl\IAssemblyScanner.cs" />
     <Compile Include="Conventions\IGraphModifier.cs" />
     <Compile Include="Conventions\IRegistrationConvention.cs" />
