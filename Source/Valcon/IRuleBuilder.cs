@@ -40,7 +40,6 @@ namespace Valcon
             for (int i = 0; i < parameters.Length; ++i)
             {
                 var parameter = parameters[i];
-                // TODO -- support dependencies via Func?
                 if (parameter.ParameterType == typeof(Accessor))
                 {
                     args[i] = call.Accessor;

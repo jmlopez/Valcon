@@ -9,16 +9,17 @@ namespace Valcon.Registration.Dsl
     {
         private readonly Func<PropertyInfo, bool> _matches;
         private readonly List<Type> _ruleTypes;
-        public DefaultValidationExpression(ConfigureDefaultValidationExpression expression, Func<PropertyInfo, bool> matches)
+        private readonly List<Action<Accessor, ValidationRegistry>> _alterations;
+        public DefaultValidationExpression(Func<PropertyInfo, bool> matches)
         {
             _matches = matches;
             _ruleTypes = new List<Type>();
-  
-            expression.AddAlteration((a, r) =>
-                                         {
-                                             var modelExpression = r.For(a.ModelType);
-                                             _ruleTypes.ForEach(ruleType => modelExpression.AddCall(new ValidationCall(ruleType, a)));
-                                         });
+            _alterations = new List<Action<Accessor, ValidationRegistry>>();
+        }
+
+        public IEnumerable<Action<Accessor, ValidationRegistry>> Alterations
+        {
+            get { return _alterations; }
         }
 
         public Func<PropertyInfo, bool> Matches
@@ -28,11 +29,17 @@ namespace Valcon.Registration.Dsl
 
         public IDefaultValidationExpression AddRule(Type ruleType)
         {
-            if(!_ruleTypes.Contains(ruleType))
+            if(_ruleTypes.Contains(ruleType))
             {
-                _ruleTypes.Add(ruleType);
+                return this;
             }
-
+            
+            _ruleTypes.Add(ruleType);
+            _alterations.Add((a, r) =>
+                                {
+                                    var modelExpression = r.For(a.ModelType);
+                                    _ruleTypes.ForEach(rule => modelExpression.AddCall(new ValidationCall(rule, a)));
+                                });
             return this;
         }
     }

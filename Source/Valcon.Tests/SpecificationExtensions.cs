@@ -247,6 +247,11 @@ namespace Valcon.Tests
             }
         }
 
+        public static void ShouldBeEmpty<T>(this IEnumerable<T> actual)
+        {
+            actual.ShouldHaveCount(0);
+        }
+
         public static void ShouldNotBeEmpty<T>(this IEnumerable<T> actual)
         {
             Assert.Greater(actual.Count(), 0, "The list should have at least one element");

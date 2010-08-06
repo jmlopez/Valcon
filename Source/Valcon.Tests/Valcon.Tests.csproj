@@ -35,6 +35,9 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\Lib\NUnit\framework\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\Lib\RhinoMocks\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,7 +53,12 @@
     <Compile Include="Rules\EmailRuleTester.cs" />
     <Compile Include="Rules\PhoneNumberRuleTester.cs" />
     <Compile Include="Rules\RequiredRuleTester.cs" />
+    <Compile Include="Scenarios\Models\ModelMarker.cs" />
+    <Compile Include="Scenarios\Models\UserDetailsModel.cs" />
+    <Compile Include="Scenarios\when_building_rules_with_dependencies.cs" />
+    <Compile Include="Scenarios\when_specifying_default_conventions.cs" />
     <Compile Include="SpecificationExtensions.cs" />
+    <Compile Include="ValidationProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Valcon\Valcon.csproj">
