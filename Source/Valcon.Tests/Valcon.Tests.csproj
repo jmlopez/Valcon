@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassToValidate.cs" />
-    <Compile Include="Expressions.cs" />
     <Compile Include="InitializationExpressionTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\BasicRuleTester.cs" />
