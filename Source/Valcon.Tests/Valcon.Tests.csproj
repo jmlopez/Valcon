@@ -58,6 +58,7 @@
     <Compile Include="Scenarios\when_building_rules_with_dependencies.cs" />
     <Compile Include="Scenarios\when_specifying_default_conventions.cs" />
     <Compile Include="SpecificationExtensions.cs" />
+    <Compile Include="ValidationProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Valcon\Valcon.csproj">
