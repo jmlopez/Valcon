@@ -22,7 +22,8 @@ namespace Valcon.Tests
 
             Validator
                 .Validate(validModel)
-                .ShouldBeEmpty();
+                .IsValid
+                .ShouldBeTrue();
         }
 
         [Test]
@@ -32,7 +33,8 @@ namespace Valcon.Tests
 
             Validator
                 .Validate(invalidModel)
-                .ShouldNotBeEmpty();
+                .IsValid
+                .ShouldBeFalse();
         }
 
         public class ValidationTestRegistry : ValidationRegistry

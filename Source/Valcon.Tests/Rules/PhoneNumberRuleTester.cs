@@ -27,7 +27,7 @@ namespace Valcon.Tests.Rules
         public void invalid_phone_number()
         {
             _classUnderTest.PhoneNumber = "123";
-            var errors = Validate();
+            var errors = Validate().Errors;
             errors.Where(e => e.Accessor.Property.Name == "PhoneNumber").ShouldHaveCount(1);
         }
 
@@ -36,11 +36,11 @@ namespace Valcon.Tests.Rules
         public void valid_phone_number()
         {
             _classUnderTest.PhoneNumber = "5123400340";
-            var errors = Validate();
+            var errors = Validate().Errors;
             errors.Where(e => e.Accessor.Property.Name == "PhoneNumber").ShouldHaveCount(0);
         }
 
-        private IEnumerable<ValidationError> Validate()
+        private ValidationSummary Validate()
         {
             return Validator.Validate(_classUnderTest);
         }

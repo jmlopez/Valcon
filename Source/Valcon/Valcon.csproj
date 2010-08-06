@@ -94,6 +94,7 @@
     <Compile Include="Rules\RequiredValidationRule.cs" />
     <Compile Include="ValidationConfigurationDslExtensions.cs" />
     <Compile Include="Registration\Dsl\ValidationRegistry.cs" />
+    <Compile Include="ValidationSummary.cs" />
     <Compile Include="Validator.cs" />
   </ItemGroup>
   <ItemGroup />

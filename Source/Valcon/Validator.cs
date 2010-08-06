@@ -26,7 +26,7 @@ namespace Valcon
             }
         }
 
-        public static IEnumerable<ValidationError> Validate(object model)
+        public static ValidationSummary Validate(object model)
         {
             return ValidationProvider.Validate(model);
         }

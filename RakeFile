@@ -7,14 +7,12 @@ require 'albacore'
 
 ROOT_NAMESPACE = "Valcon"
 RESULTS_DIR = "Results"
-BUILD_NUMBER = "0.1.0."
+BUILD_NUMBER_BASE = "0.1.0"
 PRODUCT = ROOT_NAMESPACE
 COPYRIGHT = 'Copyright 2010 Joshua Arnold, Jarrod Peace, et al. All rights reserved.';
 COMMON_ASSEMBLY_INFO = 'Source/CommonAssemblyInfo.cs';
 CLR_VERSION = "v3.5"
 COMPILE_TARGET = "debug"
-
-versionNumber = ENV["BUILD_NUMBER"].nil? ? 0 : ENV["BUILD_NUMBER"]
 
 props = { :archive => "Build" }
 
@@ -26,10 +24,26 @@ task :default => [:compile, :unit_test]
 
 desc "Update the version information for the build"
 assemblyinfo :version do |asm|
-  asm.version = BUILD_NUMBER + versionNumber.to_s
-  asm.file_version = BUILD_NUMBER + versionNumber.to_s
-  asm.product_name = PRODUCT
-  asm.description = PRODUCT
+  asm_version = BUILD_NUMBER_BASE + ".0"
+  
+  begin
+	gittag = `git describe --long`.chomp 	# looks something like v0.1.0-63-g92228f4
+    gitnumberpart = /-(\d+)-/.match(gittag)
+    gitnumber = gitnumberpart.nil? ? '0' : gitnumberpart[1]
+    commit = `git log -1 --pretty=format:%H`
+  rescue
+    commit = "git unavailable"
+    gitnumber = "0"
+  end
+  build_number = "#{BUILD_NUMBER_BASE}.#{gitnumber}"
+  tc_build_number = ENV["BUILD_NUMBER"]
+  puts "##teamcity[buildNumber '#{build_number}-#{tc_build_number}']" unless tc_build_number.nil?
+  asm.trademark = commit
+  asm.product_name = "#{PRODUCT} #{gittag}"
+  asm.description = build_number
+  asm.version = asm_version
+  asm.file_version = build_number
+  asm.custom_attributes :AssemblyInformationalVersion => asm_version
   asm.copyright = COPYRIGHT
   asm.output_file = COMMON_ASSEMBLY_INFO
 end

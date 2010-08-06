@@ -27,7 +27,7 @@ namespace Valcon.Tests.Rules
         public void invalid_email()
         {
             _classUnderTest.Email = "!@#$!@#$";
-            var errors = Validate();
+            var errors = Validate().Errors;
             errors.Where(e => e.Accessor.Property.Name == "Email").ShouldHaveCount(1);
         }
 
@@ -36,11 +36,11 @@ namespace Valcon.Tests.Rules
         public void valid_email()
         {
             _classUnderTest.Email = "user@domain.com";
-            var errors = Validate();
+            var errors = Validate().Errors;
             errors.Where(e => e.Accessor.Property.Name == "Email").ShouldHaveCount(0);
         }
 
-        private IEnumerable<ValidationError> Validate()
+        private ValidationSummary Validate()
         {
             return Validator.Validate(_classUnderTest);
         }

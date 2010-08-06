@@ -5,7 +5,7 @@ namespace Valcon
 {
     public interface IValidationProvider
     {
-        IEnumerable<ValidationError> Validate(object model);
+        ValidationSummary Validate(object model);
     }
 
     public class ValidationProvider : IValidationProvider
@@ -18,23 +18,24 @@ namespace Valcon
             _ruleBuilder = ruleBuilder;
         }
 
-        public IEnumerable<ValidationError> Validate(object model)
+        public ValidationSummary Validate(object model)
         {
-            if(model == null)
+            var errors = new List<ValidationError>();
+            if (model != null)
             {
-                yield break;
-            }
-
-            var chain = _graph.FindChain(model.GetType());
-            foreach (var call in chain)
-            {
-                var rule = _ruleBuilder.Build(call);
-                var error = rule.Validate(model);
-                if(error != null)
+                var chain = _graph.FindChain(model.GetType());
+                foreach (var call in chain)
                 {
-                    yield return error;
+                    var rule = _ruleBuilder.Build(call);
+                    var error = rule.Validate(model);
+                    if (error != null)
+                    {
+                        errors.Add(error);
+                    }
                 }
             }
+
+            return new ValidationSummary(errors);
         }
     }
 
