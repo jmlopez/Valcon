@@ -1,4 +1,8 @@
-﻿using System;
+﻿/**
+ * Note: This is heavily influenced by StructureMap. All credit goes to Jeremy Miller for his AssemblyScanner.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
