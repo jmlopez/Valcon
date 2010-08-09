@@ -1,13 +1,18 @@
 <%@ Master Language="C#" Inherits="FubuMVC.Core.View.FubuMasterPage" %>
+<%@ Import Namespace="FubuCore" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
     <title>Hello World</title>
+    <link rel="Stylesheet" type="text/css" media="screen" href="<%= "~/Styles/default.css".ToAbsoluteUrl() %>" />
 </head>
 <body>
     <div>
         <asp:ContentPlaceHolder ID="MainContent" runat="server" />
     </div>
+    <div id="MessageBox" style="display:none;"></div>
+	<div id="Confirmation" style="display:none;"></div>
+    <div id="Loading" class="loading" style="display:none;"><img src="<%= "~/Images/ajax-loader.gif".ToAbsoluteUrl() %>" alt="loading"/></div>
 </body>
     <asp:ContentPlaceHolder ID="Scripts" runat="server" />
 </html>

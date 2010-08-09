@@ -58,6 +58,7 @@
       <HintPath>..\..\Lib\FubuMVC\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
@@ -75,11 +76,54 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Images\ajax-loader.gif" />
+    <Content Include="Scripts\core.js" />
+    <Content Include="Scripts\jquery\jquery-1.4.2.min.js" />
+    <Content Include="Scripts\jquery\jquery-ui-1.8.2.custom.min.js" />
+    <Content Include="Scripts\jquery\jquery.form.js" />
+    <Content Include="Scripts\jquery\jquery.validate.min.js" />
+    <Content Include="Styles\default.css" />
+    <Content Include="Styles\jquery\images\ui-anim_basic_16x16.gif" />
+    <Content Include="Styles\jquery\images\ui-bg_flat_0_eeeeee_40x100.png" />
+    <Content Include="Styles\jquery\images\ui-bg_flat_55_f1cece_40x100.png" />
+    <Content Include="Styles\jquery\images\ui-bg_flat_55_fcef73_40x100.png" />
+    <Content Include="Styles\jquery\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Styles\jquery\images\ui-bg_highlight-hard_0_7e7c7c_1x100.png" />
+    <Content Include="Styles\jquery\images\ui-bg_highlight-hard_65_0073ea_1x100.png" />
+    <Content Include="Styles\jquery\images\ui-bg_highlight-soft_100_f6f6f6_1x100.png" />
+    <Content Include="Styles\jquery\images\ui-bg_highlight-soft_25_0073ea_1x100-primary.png" />
+    <Content Include="Styles\jquery\images\ui-bg_highlight-soft_50_dddddd_1x100-primary.png" />
+    <Content Include="Styles\jquery\images\ui-bg_highlight-soft_50_dddddd_1x100.png" />
+    <Content Include="Styles\jquery\images\ui-icons_0073ea_256x240.png" />
+    <Content Include="Styles\jquery\images\ui-icons_666666_256x240.png" />
+    <Content Include="Styles\jquery\images\ui-icons_cccccc_256x240.png" />
+    <Content Include="Styles\jquery\images\ui-icons_ec040c_256x240.png" />
+    <Content Include="Styles\jquery\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Styles\jquery\jquery-ui-1.8.2.custom.css" />
+    <Content Include="Styles\snapdragon\snapdragon-common.css" />
+    <Content Include="Styles\snapdragon\snapdragon-forms.css" />
+    <Content Include="Views\Users\Add.aspx" />
     <Content Include="Views\Users\List.aspx" />
     <Content Include="Views\Users\UserListItem.ascx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\Actions\ActionMarker.cs" />
+    <Compile Include="Configuration\Actions\PartialAction.cs" />
+    <Compile Include="Configuration\Behaviors\CrudErrorWrapperBehavior.cs" />
+    <Compile Include="Configuration\Behaviors\CrudErrorWrapperBehaviorNode.cs" />
+    <Compile Include="Configuration\Behaviors\CrudValidationBehaviorNode.cs" />
+    <Compile Include="Configuration\Behaviors\ValidateInputModelBehavior.cs" />
+    <Compile Include="Configuration\Conventions\CrudErrorWrapperConvention.cs" />
+    <Compile Include="Configuration\Conventions\CrudValidationConvention.cs" />
+    <Compile Include="Configuration\FubuDslExtensions.cs" />
+    <Compile Include="Configuration\HelloWorldHtmlConventions.cs" />
+    <Compile Include="Configuration\Sources\FindActionsSource.cs" />
+    <Compile Include="Configuration\PartialModelAttribute.cs" />
+    <Compile Include="Configuration\Validation\UserValidationRegistry.cs" />
+    <Compile Include="Endpoints\Users\AddEndpoint.cs" />
+    <Compile Include="Endpoints\Users\CreateEndpoint.cs" />
+    <Compile Include="Models\AjaxResponse.cs" />
     <Compile Include="Configuration\FubuStructureMapBootstrapper.cs" />
     <Compile Include="Configuration\Policies\EndpointUrlPolicy.cs" />
     <Compile Include="Configuration\HelloWorldFubuRegistry.cs" />
@@ -107,6 +151,13 @@
     <Compile Include="Domain\User.cs" />
     <Compile Include="Models\ModelMarker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Users\Add.aspx.cs">
+      <DependentUpon>Add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Users\Add.aspx.designer.cs">
+      <DependentUpon>Add.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Users\List.aspx.cs">
       <DependentUpon>List.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -125,7 +176,6 @@
   <ItemGroup>
     <Content Include="Views\Shared\Site.Master" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Valcon\Valcon.csproj">
       <Project>{F2D977B1-1AFE-4827-83F0-946563DC756C}</Project>

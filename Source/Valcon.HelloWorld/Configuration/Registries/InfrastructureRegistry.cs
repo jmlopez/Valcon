@@ -7,6 +7,7 @@ namespace Valcon.HelloWorld.Configuration.Registries
     {
         public InfrastructureRegistry()
         {
+            For<IValidationProvider>().Use(() => Validator.ValidationProvider);
             Scan(x =>
                      {
                          x.TheCallingAssembly();
