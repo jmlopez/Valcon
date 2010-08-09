@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Valcon.Registration.Graph;
@@ -7,7 +8,7 @@ namespace Valcon
 {
     public interface IRuleBuilder
     {
-        IValidationRule Build(ValidationCall call);
+        IValidationRule Build(ValidationNode node);
     }
 
     public class RuleBuilder : IRuleBuilder
@@ -19,9 +20,9 @@ namespace Valcon
             _serviceLocator = serviceLocator;
         }
 
-        public IValidationRule Build(ValidationCall call)
+        public IValidationRule Build(ValidationNode node)
         {
-            var def = call.ToRuleDef();
+            var def = node.ToRuleDef();
             var ruleType = def.Type;
 
             // At minimum, rules should require an Accessor in their constructor
@@ -34,16 +35,18 @@ namespace Valcon
                 throw new InvalidOperationException(string.Format("Could not find valid constructor for rule: {0}", ruleType));
             }
 
+            var dependencies = new List<ValueDependency>(def.Dependencies);
             var parameters = targetCtor.GetParameters();
             var args = new object[parameters.Length];
 
             for (int i = 0; i < parameters.Length; ++i)
             {
                 var parameter = parameters[i];
-                // TODO -- support dependencies via Func?
-                if (parameter.ParameterType == typeof(Accessor))
+                var dependency = dependencies.FirstOrDefault(d => d.DependencyType == parameter.ParameterType);
+                if(dependency != null)
                 {
-                    args[i] = call.Accessor;
+                    args[i] = dependency.Value;
+                    dependencies.Remove(dependency);
                 }
                 else
                 {

@@ -3,7 +3,7 @@ using Valcon.Registration.Graph;
 
 namespace Valcon.Rules
 {
-    public class EmailValidationRule<TModel> : BasicValidationRule<TModel>
+    public class EmailValidationRule<TModel> : BaseValidationRule<TModel>
        where TModel : class
     {
         private static readonly Regex EmailExp;
@@ -18,7 +18,7 @@ namespace Valcon.Rules
 
         public override ValidationError Validate(TModel model)
         {
-            var propertyVal = GetPropertyValue(model);
+            var propertyVal = GetAccessorValue(model);
             if(propertyVal == null || !EmailExp.IsMatch(propertyVal.ToString()))
             {
                 return Error("Invalid email address specified: {0}.", propertyVal);

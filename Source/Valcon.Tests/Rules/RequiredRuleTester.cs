@@ -64,7 +64,7 @@ namespace Valcon.Tests.Rules
 
         private IEnumerable<ValidationError> Validate()
         {
-            return Validator.Validate(_classUnderTest);
+            return Validator.Validate(_classUnderTest).Errors;
         }
 
         #region Nested Types

@@ -2,12 +2,12 @@
 
 namespace Valcon.Rules
 {
-    public abstract class BasicValidationRule<TModel> : IValidationRule
+    public abstract class BaseValidationRule<TModel> : IValidationRule
         where TModel : class
     {
         private readonly Accessor _accessor;
 
-        protected BasicValidationRule(Accessor accessor)
+        protected BaseValidationRule(Accessor accessor)
         {
             _accessor = accessor;
         }
@@ -40,9 +40,14 @@ namespace Valcon.Rules
             return Validate(modelToValidate);
         }
 
-        public object GetPropertyValue(object model)
+        public object GetAccessorValue(object model)
         {
-            return Accessor.Property.GetValue(model, null);
+            return GetAccessorValue(Accessor, model);
+        }
+
+        public object GetAccessorValue(Accessor accessor, object model)
+        {
+            return accessor.Property.GetValue(model, null);
         }
 
         public abstract ValidationError Validate(TModel model);
