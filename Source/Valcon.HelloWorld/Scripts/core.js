@@ -80,3 +80,41 @@ $.extend({
         }
     }
 });
+
+$.fn.serializeObject = function () {
+    var obj = {};
+    var values = this.serializeArray();
+
+    $.each(values, function () {
+        if (obj[this.name]) {
+            if (!obj[this.name].push) {
+                obj[this.name] = [obj[this.name]];
+            }
+            obj[this.name].push(this.value || '');
+        } else {
+            obj[this.name] = this.value || '';
+        }
+    });
+    return obj;
+};
+
+$.fn.ajaxifyForm = function () {
+    this.validate({
+        submitHandler: function (form) {
+            $.valcon.clearErrors();
+            $.valcon.showLoadingDialog();
+
+            var $form = $(form);
+            $.ajax({
+                url: $form.attr('action'),
+                dataType: 'json',
+                type: 'post',
+                data: { Body: JSON.stringify($form.serializeObject()) },
+                success: function (response) {
+                    $.valcon.jsonResponseHandler(response);
+                }
+            });
+            $.valcon.closeLoadingDialog();
+        }
+    });
+};

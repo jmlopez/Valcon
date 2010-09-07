@@ -55,20 +55,8 @@
     <script type="text/javascript" src="<%= "~/Scripts/core.js".ToAbsoluteUrl() %>"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#Add-User').validate({
-                submitHandler: function (form) {
-                    $.valcon.clearErrors();
-                    $.valcon.showLoadingDialog();
-                    $(form).ajaxSubmit({
-                        dataType: 'json',
-                        type: 'post',
-                        success: function (response) {
-                            $.valcon.jsonResponseHandler(response);
-                        }
-                    });
-                    $.valcon.closeLoadingDialog();
-                }
-            });
+            $('#Add-User').ajaxifyForm();
+
             $('#Create-User').click(function () {
                 $('#Add-User').submit();
             });

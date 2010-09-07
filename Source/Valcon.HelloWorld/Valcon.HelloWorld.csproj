@@ -82,6 +82,7 @@
     <Content Include="Scripts\jquery\jquery-ui-1.8.2.custom.min.js" />
     <Content Include="Scripts\jquery\jquery.form.js" />
     <Content Include="Scripts\jquery\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery\json2.js" />
     <Content Include="Styles\default.css" />
     <Content Include="Styles\jquery\images\ui-anim_basic_16x16.gif" />
     <Content Include="Styles\jquery\images\ui-bg_flat_0_eeeeee_40x100.png" />
@@ -118,6 +119,8 @@
     <Compile Include="Configuration\Conventions\CrudValidationConvention.cs" />
     <Compile Include="Configuration\FubuDslExtensions.cs" />
     <Compile Include="Configuration\HelloWorldHtmlConventions.cs" />
+    <Compile Include="Infrastructure\IJsonService.cs" />
+    <Compile Include="Models\JsonModel.cs" />
     <Compile Include="Configuration\Sources\FindActionsSource.cs" />
     <Compile Include="Configuration\PartialModelAttribute.cs" />
     <Compile Include="Configuration\Validation\UserValidationRegistry.cs" />
@@ -154,9 +157,6 @@
     <Compile Include="Views\Users\Add.aspx.cs">
       <DependentUpon>Add.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Users\Add.aspx.designer.cs">
-      <DependentUpon>Add.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\List.aspx.cs">
       <DependentUpon>List.aspx</DependentUpon>
