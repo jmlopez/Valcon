@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Valcon.Attributes;
+using Valcon.Rules;
 
 namespace Valcon
 {
     internal static class CoreExtensions
     {
+        public static object GetDefaultInstance(this Type type)
+        {
+            return Activator.CreateInstance(type);
+        }
+
         public static bool IsValidationRule(this Type type)
         {
             return typeof (IValidationRule).IsAssignableFrom(type);
@@ -36,38 +42,16 @@ namespace Valcon
             return type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
         }
 
-        public static bool IsInNamespace(this Type type, string nameSpace)
+        public static IEnumerable<PropertyInfo> PropertiesWhere(this Type type, Func<PropertyInfo, bool> predicate)
         {
-            return type.Namespace.StartsWith(nameSpace);
+            return type.GetPublicProperties().Where(predicate);
         }
 
-        public static void Fill<T>(this IList<T> list, T value)
+        public static void EachProperty(this Type type, Action<PropertyInfo> action)
         {
-            if (list.Contains(value)) return;
-            list.Add(value);
-        }
-
-        public static IEnumerable<T> Each<T>(this IEnumerable<T> enumerable, Action<T> action)
-        {
-            foreach (T target in enumerable)
-            {
-                action(target);
-            }
-
-            return enumerable;
-        }
-
-        /// <summary>
-        /// Appends a sequence of items to an existing list
-        /// </summary>
-        /// <typeparam name="T">The type of the items in the list</typeparam>
-        /// <param name="list">The list to modify</param>
-        /// <param name="items">The sequence of items to add to the list</param>
-        /// <returns></returns>
-        public static IList<T> AddRange<T>(this IList<T> list, IEnumerable<T> items)
-        {
-            items.Each(list.Add);
-            return list;
+            type
+                .GetPublicProperties()
+                .Each(action);
         }
     }
 }

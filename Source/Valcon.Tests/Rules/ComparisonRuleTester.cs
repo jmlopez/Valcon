@@ -9,7 +9,7 @@ namespace Valcon.Tests.Rules
         [TestFixtureSetUp]
         public void BeforeAll()
         {
-            Validator.Initialize(x => x.For<UserSignupModel>().Compare(u => u.Password, u => u.ConfirmPassword));
+            Validator.Initialize(x => x.Rules.For<UserSignupModel>().Compare(u => u.Password, u => u.ConfirmPassword));
         }
 
         [SetUp]

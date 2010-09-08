@@ -14,7 +14,7 @@ namespace Valcon.Tests.Rules
         [TestFixtureSetUp]
         public void BeforeAll()
         {
-            Validator.Initialize(x => x.AddRegistry<RequiredRegistry>());
+            Validator.Initialize(new RequiredRegistry());
         }
 
         [SetUp]
@@ -78,15 +78,15 @@ namespace Valcon.Tests.Rules
         {
             public RequiredRegistry()
             {
-                Scan(x =>
-                         {
-                             x.TheCallingAssembly();
-                             x.IncludeNamespaceContainingType<RequiredRuleTester>();
-                             x.Include(t => t.Name.EndsWith("Model"));
-                             x.ByDefault
-                                 .IfProperty(p => !p.PropertyType.IsPrimitive)
-                                 .IsRequired();
-                         });
+                AppliesTo
+                    .ToThisAssembly();
+
+                Models
+                    .IncludedTypesInNamespaceContaining<RequiredRuleTester>()
+                    .IncludeTypes(t => t.Name.EndsWith("Model"));
+
+                Rules
+                    .IfProperty(p => !p.PropertyType.IsPrimitive, validate => validate.AsRequired());
             }
         }
         #endregion

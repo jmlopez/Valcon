@@ -1,8 +1,10 @@
 using System;
+using FubuCore.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Valcon.Registration;
 using Valcon.Registration.Graph;
-using Valcon.Util;
+using Valcon.Rules;
 
 namespace Valcon.Tests.Scenarios
 {
@@ -10,7 +12,7 @@ namespace Valcon.Tests.Scenarios
     public class when_building_rules_with_dependencies
     {
         #region Setup
-        private RuleBuilder _classUnderTest;
+        private RuleCompiler _classUnderTest;
         private Cache<Type, object> _serviceLocatorCache;
         private MockRepository _mockRepository;
         [TestFixtureSetUp]
@@ -21,7 +23,9 @@ namespace Valcon.Tests.Scenarios
                                        {
                                            OnMissing = t => _mockRepository.StrictMock(t, null)
                                        };
-            _classUnderTest = new RuleBuilder(t => _serviceLocatorCache[t]);
+            var graph = new ValidationGraph();
+            graph.ServiceLocator = t => _serviceLocatorCache[t];
+            _classUnderTest = new RuleCompiler(graph);
             _mockRepository.Record();
         }
 
@@ -36,7 +40,7 @@ namespace Valcon.Tests.Scenarios
                 .VerifyAllExpectations();
         }
 
-        private RuleBuilder ClassUnderTest
+        private RuleCompiler ClassUnderTest
         {
             get
             {
@@ -56,7 +60,7 @@ namespace Valcon.Tests.Scenarios
                 .Return(false);
 
             ClassUnderTest
-                .Build(new ValidationCall(typeof(UsernameIsUniqueValidationRule), Accessor.For<User>(u => u.Username)))
+                .Compile(new ValidationCall(typeof(UsernameIsUniqueValidationRule), Accessor.For<User>(u => u.Username)).ToRuleDef())
                 .Validate(user)
                 .ShouldNotBeNull();
 

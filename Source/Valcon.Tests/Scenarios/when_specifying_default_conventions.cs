@@ -11,7 +11,7 @@ namespace Valcon.Tests.Scenarios
         [TestFixtureSetUp]
         public void SetUp()
         {
-            Validator.Initialize(x => x.AddRegistry<ConventionTestRegistry>());
+            Validator.Initialize(new ConventionTestRegistry());
         }
 
         [Test]
@@ -42,20 +42,16 @@ namespace Valcon.Tests.Scenarios
         {
             public ConventionTestRegistry()
             {
-                Scan(x =>
-                         {
-                             x.TheCallingAssembly();
-                             x.IncludeNamespaceContainingType<ModelMarker>();
-                             x.ExcludeType<ModelMarker>();
+                AppliesTo
+                    .ToThisAssembly();
 
-                             x.ByDefault
-                                 .IfProperty(p => p.Name.Contains("Email"))
-                                 .IsEmail();
+                Models
+                    .IncludedTypesInNamespaceContaining<ModelMarker>()
+                    .Exclude<ModelMarker>();
 
-                             x.ByDefault
-                                 .IfProperty(p => p.Name.Contains("Phone"))
-                                 .IsPhoneNumber();
-                         });
+                Rules
+                    .IfProperty(p => p.Name.Contains("Email"), validate => validate.AsEmail())
+                    .IfProperty(p => p.Name.Contains("Phone"), validate => validate.AsPhoneNumber());
             }
         }
         #endregion

@@ -12,7 +12,7 @@ namespace Valcon.Tests.Rules
         [TestFixtureSetUp]
         public void BeforeAll()
         {
-            Validator.Initialize(x => x.For<EmailFieldModel>().Email(m => m.Email));
+            Validator.Initialize(x => x.Rules.For<EmailFieldModel>().Email(m => m.Email));
         }
 
         [SetUp]

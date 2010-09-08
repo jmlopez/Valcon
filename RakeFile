@@ -7,7 +7,7 @@ require 'albacore'
 
 ROOT_NAMESPACE = "Valcon"
 RESULTS_DIR = "Results"
-BUILD_NUMBER_BASE = "0.1.0"
+BUILD_NUMBER_BASE = "0.2.0"
 PRODUCT = ROOT_NAMESPACE
 COPYRIGHT = 'Copyright 2010 Joshua Arnold, Jarrod Peace, et al. All rights reserved.';
 COMMON_ASSEMBLY_INFO = 'Source/CommonAssemblyInfo.cs';
@@ -71,5 +71,5 @@ desc "Runs all unit tests"
 nunit :unit_test do |nunit|
 	nunit.path_to_command = "lib/NUnit/nunit-console.exe"
 	nunit.assemblies "Source/#{ROOT_NAMESPACE}.Tests/bin/debug/#{ROOT_NAMESPACE}.Tests.dll"
-  nunit.parameters "/out:#{RESULTS_DIR}/nunit_results.xml"
+  nunit.parameters "/xml:#{RESULTS_DIR}/nunit_results.xml"
 end

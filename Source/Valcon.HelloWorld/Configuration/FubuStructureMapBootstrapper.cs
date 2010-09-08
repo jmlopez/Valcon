@@ -28,11 +28,7 @@ namespace Valcon.HelloWorld.Configuration
 
             Mapper.Initialize(x => x.CreateMap<User, UserDetailsModel>());
 
-            Validator.Initialize(x =>
-                                     {
-                                         x.AddRegistry<CoreValidationRegistry>();
-                                         x.BuildDependenciesWith(ObjectFactory.GetInstance);
-                                     });
+            Validator.Initialize(new HelloWorldValidationRegistry());
 
             ServiceLocator.SetLocatorProvider(() => new StructureMapServiceLocator(ObjectFactory.Container));
 

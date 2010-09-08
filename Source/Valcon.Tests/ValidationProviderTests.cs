@@ -9,7 +9,7 @@ namespace Valcon.Tests
         [TestFixtureSetUp]
         public void BeforeAll()
         {
-            Validator.Initialize(x => x.AddRegistry<ValidationTestRegistry>());
+            Validator.Initialize(new ValidationTestRegistry());
         }
 
         [Test]
@@ -41,7 +41,8 @@ namespace Valcon.Tests
         {
             public ValidationTestRegistry()
             {
-                For<ClassToValidate>()
+                Rules
+                    .For<ClassToValidate>()
                     .Require(c => c.SimpleRequiredField);
             }
         }

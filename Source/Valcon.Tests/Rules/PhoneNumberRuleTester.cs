@@ -13,7 +13,7 @@ namespace Valcon.Tests.Rules
         [TestFixtureSetUp]
         public void BeforeAll()
         {
-            Validator.Initialize(x => x.For<PhoneNumberFieldModel>().PhoneNumber(m => m.PhoneNumber));
+            Validator.Initialize(x => x.Rules.For<PhoneNumberFieldModel>().PhoneNumber(m => m.PhoneNumber));
         }
 
         [SetUp]

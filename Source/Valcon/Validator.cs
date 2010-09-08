@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Valcon.Registration;
 
 namespace Valcon
@@ -12,17 +11,17 @@ namespace Valcon
         public static ValidationGraph ValidationGraph { get { return _graph; } }
         public static IValidationProvider ValidationProvider { get { return _validationProvider; } }
 
-        public static void Initialize(Action<IInitializationExpression> action)
+        public static void Initialize(Action<ValidationRegistry> configure)
         {
-            lock (typeof(Validator))
+            Initialize(new ValidationRegistry(configure));
+        }
+
+        public static void Initialize(ValidationRegistry registry)
+        {
+            lock(typeof(Validator))
             {
-                var expression = new InitializationExpression();
-                action(expression);
-
-                _graph = expression.BuildGraph();
-                _graph.Seal();
-
-                _validationProvider = new ValidationProvider(_graph, new RuleBuilder(expression.ServiceLocator));
+                _graph = registry.BuildGraph();
+                _validationProvider = new ValidationProvider(_graph, new RuleCompiler(_graph));
             }
         }
 

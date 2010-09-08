@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FubuCore">
+      <HintPath>..\..\Lib\FubuMVC\FubuCore.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,26 +54,18 @@
     <Compile Include="Attributes\PhoneNumberAttribute.cs" />
     <Compile Include="Attributes\RequiredAttribute.cs" />
     <Compile Include="Attributes\RuleAttribute.cs" />
-    <Compile Include="Conventions\LambdaGraphModifier.cs" />
-    <Compile Include="Conventions\ValidationAttributeConvention.cs" />
-    <Compile Include="IInitializationExpression.cs" />
-    <Compile Include="InitializationExpression.cs" />
-    <Compile Include="IRuleBuilder.cs" />
+    <Compile Include="Registration\ExtensionTypeMatcher.cs" />
+    <Compile Include="IRuleCompiler.cs" />
+    <Compile Include="IValidationRegistryExtension.cs" />
+    <Compile Include="Registration\Dsl\ExtensionCandidateExpression.cs" />
+    <Compile Include="Registration\Dsl\IValidationOptions.cs" />
     <Compile Include="IValidationProvider.cs" />
-    <Compile Include="Registration\Dsl\AssemblyScanner.cs" />
-    <Compile Include="Registration\Dsl\ConfigureDefaultValidationExpression.cs" />
-    <Compile Include="Registration\Dsl\ConfigureValidationForTypeExpression.cs" />
+    <Compile Include="RegistrationExtensions.cs" />
+    <Compile Include="Registration\Dsl\AppliesToExpression.cs" />
+    <Compile Include="Registration\Dsl\ValidationByTypeExpression.cs" />
     <Compile Include="CoreExtensions.cs" />
-    <Compile Include="Conventions\FindRegistriesConvention.cs" />
-    <Compile Include="Registration\Dsl\DefaultConventionExtensions.cs" />
-    <Compile Include="Registration\Dsl\DefaultValidationExpression.cs" />
-    <Compile Include="DefaultValidationDslExtensions.cs" />
-    <Compile Include="Registration\Dsl\IAssemblyScanner.cs" />
-    <Compile Include="Conventions\IGraphModifier.cs" />
-    <Compile Include="Conventions\IRegistrationConvention.cs" />
-    <Compile Include="Conventions\InheritValidationRulesModifer.cs" />
-    <Compile Include="Registration\Dsl\IDefaultValidationExpression.cs" />
-    <Compile Include="Registration\Dsl\IValidationRegistry.cs" />
+    <Compile Include="Registration\Conventions\InheritValidationRulesConvention.cs" />
+    <Compile Include="Registration\Dsl\TypeCandidateExpression.cs" />
     <Compile Include="Registration\Graph\Accessor.cs" />
     <Compile Include="Registration\Graph\ComparisonValidationCall.cs" />
     <Compile Include="Registration\Graph\GraphExtensions.cs" />
@@ -78,7 +73,15 @@
     <Compile Include="Registration\Graph\ValidationCall.cs" />
     <Compile Include="Registration\Graph\ValidationNode.cs" />
     <Compile Include="Registration\Graph\ValueDependency.cs" />
+    <Compile Include="Registration\IConfigurationAction.cs" />
+    <Compile Include="Registration\ITypeMatcher.cs" />
+    <Compile Include="Registration\LambdaConfigurationAction.cs" />
+    <Compile Include="Registration\ModelMatcher.cs" />
+    <Compile Include="Registration\TypeMatcher.cs" />
+    <Compile Include="Registration\TypePool.cs" />
     <Compile Include="Registration\ValidationChain.cs" />
+    <Compile Include="RuleCompiler.cs" />
+    <Compile Include="Registration\Dsl\RulesExpression.cs" />
     <Compile Include="Rules\BaseValidationRule.cs" />
     <Compile Include="Rules\BaseComparisonValidationRule.cs" />
     <Compile Include="Rules\ComparisonValidationRule.cs" />
@@ -88,17 +91,16 @@
     <Compile Include="Rules\PercentValidationRule.cs" />
     <Compile Include="Rules\PhoneNumberValidationRule.cs" />
     <Compile Include="Rules\RuleMarker.cs" />
-    <Compile Include="Util\Cache.cs" />
-    <Compile Include="Registration\Dsl\IConfigureValidationForTypeExpression.cs" />
-    <Compile Include="Util\CompositeFilter.cs" />
-    <Compile Include="Util\CompositePredicate.cs" />
-    <Compile Include="Util\TypePool.cs" />
+    <Compile Include="Registration\Conventions\ValidationAttributeConvention.cs" />
     <Compile Include="ValidationError.cs" />
     <Compile Include="Registration\ValidationGraph.cs" />
-    <Compile Include="IValidationRule.cs" />
+    <Compile Include="Rules\IValidationRule.cs" />
     <Compile Include="Rules\RequiredValidationRule.cs" />
     <Compile Include="ValidationConfigurationDslExtensions.cs" />
-    <Compile Include="Registration\Dsl\ValidationRegistry.cs" />
+    <Compile Include="Registration\Dsl\ValidationOptions.cs" />
+    <Compile Include="ValidationOptionsExtensions.cs" />
+    <Compile Include="ValidationProvider.cs" />
+    <Compile Include="ValidationRegistry.cs" />
     <Compile Include="ValidationSummary.cs" />
     <Compile Include="Validator.cs" />
   </ItemGroup>

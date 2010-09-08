@@ -119,11 +119,11 @@
     <Compile Include="Configuration\Conventions\CrudValidationConvention.cs" />
     <Compile Include="Configuration\FubuDslExtensions.cs" />
     <Compile Include="Configuration\HelloWorldHtmlConventions.cs" />
+    <Compile Include="Configuration\Validation\UserValidationExtension.cs" />
     <Compile Include="Infrastructure\IJsonService.cs" />
     <Compile Include="Models\JsonModel.cs" />
     <Compile Include="Configuration\Sources\FindActionsSource.cs" />
     <Compile Include="Configuration\PartialModelAttribute.cs" />
-    <Compile Include="Configuration\Validation\UserValidationRegistry.cs" />
     <Compile Include="Endpoints\Users\AddEndpoint.cs" />
     <Compile Include="Endpoints\Users\CreateEndpoint.cs" />
     <Compile Include="Models\AjaxResponse.cs" />
@@ -133,8 +133,7 @@
     <Compile Include="Configuration\Registries\InfrastructureRegistry.cs" />
     <Compile Include="Configuration\Registries\CoreRegistry.cs" />
     <Compile Include="Configuration\Registries\RepositoryRegistry.cs" />
-    <Compile Include="Configuration\Validation\BasicValidationRegistry.cs" />
-    <Compile Include="Configuration\Validation\CoreValidationRegistry.cs" />
+    <Compile Include="Configuration\Validation\HelloWorldValidationRegistry.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

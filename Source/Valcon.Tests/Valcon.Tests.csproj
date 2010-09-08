@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FubuCore">
+      <HintPath>..\..\Lib\FubuMVC\FubuCore.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\Lib\NUnit\framework\nunit.framework.dll</HintPath>
     </Reference>
@@ -47,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassToValidate.cs" />
-    <Compile Include="InitializationExpressionTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\BasicRuleTester.cs" />
     <Compile Include="Rules\ComparisonRuleTester.cs" />
@@ -67,9 +69,7 @@
       <Name>Valcon</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Registration\Dsl\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
