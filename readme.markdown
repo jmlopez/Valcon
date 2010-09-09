@@ -2,9 +2,6 @@ What is Valcon?
 --
 Valcon is a framework that provides Validation by Convention. 
 
-> Note: If you're browsing the source code and find yourself feeling like you're looking at StructureMap, it's because the initial spike of Valcon was slightly rushed and also served as a bit of a exploration into DSLs.
-
-
 Where is CommonAssemblyInfo.cs?
 --
 
