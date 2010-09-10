@@ -14,7 +14,7 @@ namespace Valcon
         private readonly List<IConfigurationAction> _conventions = new List<IConfigurationAction>();
         private readonly IList<IConfigurationAction> _policies = new List<IConfigurationAction>();
 
-        public AppliesToExpression AppliesTo { get { return new AppliesToExpression(_types); } }
+        public AppliesToExpression Applies { get { return new AppliesToExpression(_types); } }
         public TypeCandidateExpression Models { get { return new TypeCandidateExpression(_modelMatcher, _types); }}
         public RulesExpression Rules { get { return new RulesExpression(_policies); } }
         public ExtensionCandidateExpression Extensions { get { return new ExtensionCandidateExpression(_types, _extensionMatcher); } }

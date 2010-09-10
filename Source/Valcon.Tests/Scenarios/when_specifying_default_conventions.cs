@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using Valcon.Registration.Dsl;
 using Valcon.Rules;
 using Valcon.Tests.Scenarios.Models;
 
@@ -42,7 +41,7 @@ namespace Valcon.Tests.Scenarios
         {
             public ConventionTestRegistry()
             {
-                AppliesTo
+                Applies
                     .ToThisAssembly();
 
                 Models

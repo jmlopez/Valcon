@@ -7,7 +7,7 @@ namespace Valcon.HelloWorld.Configuration.Validation
     {
         public HelloWorldValidationRegistry()
         {
-            AppliesTo
+            Applies
                 .ToThisAssembly();
 
             Models

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Valcon.Registration.Dsl;
 
 namespace Valcon.Tests.Rules
 {
@@ -78,7 +77,7 @@ namespace Valcon.Tests.Rules
         {
             public RequiredRegistry()
             {
-                AppliesTo
+                Applies
                     .ToThisAssembly();
 
                 Models
